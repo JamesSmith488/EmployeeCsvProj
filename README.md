@@ -2,4 +2,5 @@
 
 # Config
 src/main/resources/config.properties
-test - pavle
+
+Test
