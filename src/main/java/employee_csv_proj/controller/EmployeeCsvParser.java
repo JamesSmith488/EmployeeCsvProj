@@ -1,6 +1,7 @@
 package employee_csv_proj.controller;
 
 import employee_csv_proj.config.Config;
+import employee_csv_proj.model.Employee;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,7 +15,9 @@ public class EmployeeCsvParser {
             bufferedReader.readLine();
             for (String employeeRecord = bufferedReader.readLine(); employeeRecord != null; employeeRecord = bufferedReader.readLine()){
                 String[] employeeData = employeeRecord.split(",");
-                System.out.println(employeeRecord);
+                Employee employee = new Employee(employeeData);
+                //testing employee
+                //EmployeeDAO.addEmployee(employee);
             }
         } catch (IOException e) {
             e.printStackTrace();
