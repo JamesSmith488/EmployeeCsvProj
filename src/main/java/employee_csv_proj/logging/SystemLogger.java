@@ -6,9 +6,9 @@ import java.util.logging.*;
 public class SystemLogger {
     public static Logger logger = Logger.getLogger("logger");
 
-    {
+    public static void initialiseLogger() {
         try {
-            Handler fileHandler = new FileHandler("src/main/log");
+            Handler fileHandler = new FileHandler("src/main/log/systemLog.log");
             logger.addHandler(fileHandler);
             // format logger
         } catch (IOException e) {
