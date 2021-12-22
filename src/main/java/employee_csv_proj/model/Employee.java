@@ -1,5 +1,8 @@
 package employee_csv_proj.model;
 
+import employee_csv_proj.exceptions.InvalidEmployeeIdException;
+import employee_csv_proj.exceptions.NegativeSalaryException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -34,7 +37,18 @@ public class Employee {
     }
 
     public void setEmpId(int empId) {
-        this.empId = empId;
+        final int idLength = String.valueOf(empId).length();
+
+        try {
+            if (idLength == 6) {
+                this.empId = empId;
+            } else {
+                throw new InvalidEmployeeIdException("Employee ID is not 6 digits");
+            }
+        }
+        catch (InvalidEmployeeIdException e){
+                e.printStackTrace();
+        }
     }
 
     public String getNamePrefix() {
@@ -42,7 +56,7 @@ public class Employee {
     }
 
     public void setNamePrefix(String namePrefix) {
-        this.namePrefix = namePrefix;
+        this.namePrefix = namePrefix.replaceAll("[^A-Za-z]", "") + ".";
     }
 
     public String getFirstName() {
@@ -50,7 +64,7 @@ public class Employee {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = firstName.replaceAll("[^A-Za-z]", "");
     }
 
     public char getMiddleInitial() {
@@ -66,7 +80,7 @@ public class Employee {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = lastName.replaceAll("[^A-Za-z]", "");
     }
 
     public char getGender() {
@@ -82,7 +96,7 @@ public class Employee {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.replaceAll("[^A-Za-z0-9@.!#$%&'*+-/=?^_`{|}~]", "");
     }
 
     public LocalDate getDateOfBirth() {
@@ -106,7 +120,13 @@ public class Employee {
     }
 
     public void setSalary(int salary) {
-        this.salary = salary;
+        try {
+            if (salary < 0) {
+                this.salary = salary;
+            } else throw new NegativeSalaryException("Salary cannot be less than 0");
+        }
+        catch (NegativeSalaryException e){
+            e.printStackTrace();
+        }
     }
-
 }
