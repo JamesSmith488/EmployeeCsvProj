@@ -15,6 +15,8 @@ public class EmployeesDAO {
         for (Employee i : employeeArrayList)
             if (i.getEmpId() != -1 || i.getSalary() != -1) {
                 addEmployee(i);
+            } else {
+                //log something like "Employee contains invalid data"
             }
     }
 
