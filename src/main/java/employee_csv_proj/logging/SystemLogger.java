@@ -1,11 +1,20 @@
 package employee_csv_proj.logging;
 
+import java.io.IOException;
 import java.util.logging.*;
 
 public class SystemLogger {
     public static Logger logger = Logger.getLogger("logger");
 
-    //format logger
+    public static void initialiseLogger() {
+        try {
+            Handler fileHandler = new FileHandler("src/main/log/systemLog.log");
+            logger.addHandler(fileHandler);
+            // format logger
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void logInfo(String message) {
         logger.log(Level.INFO, message);
