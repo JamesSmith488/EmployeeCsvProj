@@ -2,16 +2,25 @@ package employee_csv_proj.model;
 
 import employee_csv_proj.controller.ConnectionManager;
 import employee_csv_proj.controller.sql_queries.EmployeesSQL;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
-
 import static employee_csv_proj.logging.SystemLogger.logger;
+import java.util.ArrayList;
 
 public class EmployeesDAO {
+
+    public static void addListOfEmployees(ArrayList<Employee> employeeArrayList) {
+        for (Employee i : employeeArrayList) {
+            if (i.getEmpId() != -1 || i.getSalary() != -1) {
+                addEmployee(i);
+            } else {
+                //log something like "Employee contains invalid data"
+            }
+        }
+    }
 
     public static void addEmployee(Employee employee) {
         try {
@@ -42,7 +51,6 @@ public class EmployeesDAO {
     }
 
     public static void removeEmployee(Employee employee) {
-
         try {
             Connection connection = ConnectionManager.dbConnection();
             PreparedStatement removeEmployeeStatement = connection.prepareStatement(EmployeesSQL.REMOVE_EMPLOYEE);
@@ -60,4 +68,5 @@ public class EmployeesDAO {
             e.printStackTrace();
         }
     }
+  
 }

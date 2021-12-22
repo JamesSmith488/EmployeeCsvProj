@@ -2,7 +2,6 @@ package employee_csv_proj.model;
 
 import employee_csv_proj.exceptions.InvalidEmployeeIdException;
 import employee_csv_proj.exceptions.NegativeSalaryException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -38,16 +37,16 @@ public class Employee {
 
     public void setEmpId(int empId) {
         final int idLength = String.valueOf(empId).length();
-
         try {
             if (idLength == 6) {
                 this.empId = empId;
             } else {
+                this.empId = -1;
                 throw new InvalidEmployeeIdException("Employee ID is not 6 digits");
             }
         }
         catch (InvalidEmployeeIdException e){
-                e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -123,10 +122,30 @@ public class Employee {
         try {
             if (salary > 0) {
                 this.salary = salary;
-            } else throw new NegativeSalaryException("Salary cannot be less than 0");
+            } else {
+                this.salary = -1;
+                throw new NegativeSalaryException("Salary cannot be less than 0");
+            }
         }
         catch (NegativeSalaryException e){
             e.printStackTrace();
         }
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "empId=" + empId +
+                ", namePrefix='" + namePrefix + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleInitial=" + middleInitial +
+                ", lastName='" + lastName + '\'' +
+                ", gender=" + gender +
+                ", email='" + email + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", dateOfJoining=" + dateOfJoining +
+                ", salary=" + salary +
+                '}';
+    }
+
 }
