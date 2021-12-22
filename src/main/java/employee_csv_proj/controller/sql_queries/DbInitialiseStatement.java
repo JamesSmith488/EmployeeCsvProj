@@ -8,8 +8,8 @@ import employee_csv_proj.config.Config;
 public interface DbInitialiseStatement {
     String DB_INITIALISE = "CREATE DATABASE IF NOT EXISTS " + Config.dbName();
     String CREATE_EMPLOYEES_TABLE = "CREATE TABLE IF NOT EXISTS employees (" +
-            "TableID INTEGER," +
-            "EmployeeID INTEGER," +
+            "TableID INTEGER PRIMARY KEY AUTO_INCREMENT," +
+            "EmployeeID INTEGER UNIQUE," +
             "NamePrefix VARCHAR(10)," +
             "FirstName VARCHAR(20)," +
             "MiddleInitial CHAR(1)," +
@@ -19,4 +19,5 @@ public interface DbInitialiseStatement {
             "DateOfBirth DATE," +
             "DateOfJoining DATE," +
             "Salary INTEGER)";
+    String DROP_EMPLOYEES_TABLE = "DROP TABLE IF EXISTS employees";
 }
