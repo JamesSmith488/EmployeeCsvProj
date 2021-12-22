@@ -8,8 +8,8 @@ import java.time.LocalDate;
 public class EmployeeTests {
 
     @Test
-    @DisplayName("Employee ID is 1 test")
-    void employeeIdIs1Test() {
+    @DisplayName("Employee ID is 177013 test")
+    void employeeIdIs177013Test() {
         Employee employee = new Employee(new String[]{"177013", "Mr.", "Joe", "M", "Bloggs", "M", "JoeBloggs@example.com", "5/13/1985", "10/28/2015", "1000000"});
         Assertions.assertEquals(177013, employee.getEmpId());
     }
