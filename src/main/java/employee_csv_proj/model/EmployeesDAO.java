@@ -29,6 +29,24 @@ public class EmployeesDAO {
 
             ConnectionManager.closeConnection(connection);
         } catch (SQLException e) {
+            System.err.println("Problem accessing database");
+            //logging here pls
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeEmployee(Employee employee) {
+
+        try {
+            Connection connection = ConnectionManager.dbConnection();
+            PreparedStatement removeEmployeeStatement = connection.prepareStatement(EmployeesSQL.REMOVE_EMPLOYEE);
+            removeEmployeeStatement.setInt(1, employee.getEmpId());
+            removeEmployeeStatement.execute();
+            ConnectionManager.closeConnection(connection);
+
+        } catch (SQLException e) {
+            System.err.println("Problem accessing database");
+            //logging here
             e.printStackTrace();
         }
     }
