@@ -121,7 +121,7 @@ public class Employee {
 
     public void setSalary(int salary) {
         try {
-            if (salary < 0) {
+            if (salary > 0) {
                 this.salary = salary;
             } else throw new NegativeSalaryException("Salary cannot be less than 0");
         }
