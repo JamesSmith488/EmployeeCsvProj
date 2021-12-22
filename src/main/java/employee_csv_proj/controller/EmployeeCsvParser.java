@@ -2,10 +2,14 @@ package employee_csv_proj.controller;
 
 import employee_csv_proj.config.Config;
 import employee_csv_proj.model.Employee;
+import employee_csv_proj.model.EmployeesDAO;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
+
+import static employee_csv_proj.logging.SystemLogger.logger;
 
 public class EmployeeCsvParser {
 
@@ -20,6 +24,7 @@ public class EmployeeCsvParser {
                 //EmployeeDAO.addEmployee(employee);
             }
         } catch (IOException e) {
+            logger.log(Level.SEVERE, "Problem parsing employee data from CSV file", e);
             e.printStackTrace();
         }
     }

@@ -7,6 +7,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+
+import static employee_csv_proj.logging.SystemLogger.logger;
 
 public class EmployeesDAO {
 
@@ -27,10 +30,13 @@ public class EmployeesDAO {
             employeePreparedStatement.setInt(10, employee.getSalary());
             employeePreparedStatement.execute();
 
+            logger.log(Level.INFO, "Employee successfully added to database.");
+
             ConnectionManager.closeConnection(connection);
         } catch (SQLException e) {
             System.err.println("Problem accessing database");
             //logging here pls
+            logger.log(Level.SEVERE, "Problem accessing database when adding employee.", e);
             e.printStackTrace();
         }
     }
@@ -42,11 +48,15 @@ public class EmployeesDAO {
             PreparedStatement removeEmployeeStatement = connection.prepareStatement(EmployeesSQL.REMOVE_EMPLOYEE);
             removeEmployeeStatement.setInt(1, employee.getEmpId());
             removeEmployeeStatement.execute();
+
+            logger.log(Level.INFO, "Employee successfully removed from database.");
+
             ConnectionManager.closeConnection(connection);
 
         } catch (SQLException e) {
             System.err.println("Problem accessing database");
             //logging here
+            logger.log(Level.SEVERE, "Problem accessing database when removing employee.", e);
             e.printStackTrace();
         }
     }
