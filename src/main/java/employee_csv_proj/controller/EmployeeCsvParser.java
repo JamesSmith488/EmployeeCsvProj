@@ -2,17 +2,19 @@ package employee_csv_proj.controller;
 
 import employee_csv_proj.config.Config;
 import employee_csv_proj.model.Employee;
-
+import employee_csv_proj.model.EmployeesDAO;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import static employee_csv_proj.logging.SystemLogger.logger;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+
 
 public class EmployeeCsvParser {
 
     private static final ArrayList<Employee> employeesArrayList = new ArrayList<>();
-
 
     public static void createEmployeeData(){
         try {
@@ -26,6 +28,7 @@ public class EmployeeCsvParser {
                 //if (EmployeeCsvChecker.check(employeeData, employee)){employeesArrayList.add(employee);}
             }
         } catch (IOException e) {
+            logger.log(Level.SEVERE, "Problem parsing employee data from CSV file", e);
             e.printStackTrace();
         }
     }
@@ -35,7 +38,7 @@ public class EmployeeCsvParser {
     }
 
     public static class EmployeeCsvChecker {
-
+      
         public static void duplicateRemover(ArrayList<Employee> arrayList){
             LinkedHashSet<Integer> idHashSet = new LinkedHashSet<>();
             for (Employee employee : arrayList) idHashSet.add(employee.getEmpId());
@@ -51,5 +54,7 @@ public class EmployeeCsvParser {
                 }
             }
         }
+      
     }
+  
 }

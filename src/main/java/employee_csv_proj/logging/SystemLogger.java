@@ -6,29 +6,15 @@ import java.util.logging.*;
 public class SystemLogger {
     public static Logger logger = Logger.getLogger("logger");
 
-    public static void initialiseLogger() {
+    public static void initialiseLogger(String loggerName) {
         try {
-            Handler fileHandler = new FileHandler("src/main/log/systemLog.log");
+            Handler fileHandler = new FileHandler("src/main/logs/" + loggerName + ".log", true);
+            fileHandler.setLevel(Level.ALL);
             logger.addHandler(fileHandler);
-            // format logger
+            fileHandler.setFormatter(new CustomFormatter());
         } catch (IOException e) {
+            logger.log(Level.SEVERE,"File logger not working.");
             e.printStackTrace();
         }
-    }
-
-    public static void logInfo(String message) {
-        logger.log(Level.INFO, message);
-    }
-
-    public static void logSevere(String message) {
-        logger.log(Level.SEVERE, message);
-    }
-
-    public static void logConfig(String message) {
-        logger.log(Level.CONFIG, message);
-    }
-
-    public static void logWarning(String message) {
-        logger.log(Level.WARNING, message);
     }
 }

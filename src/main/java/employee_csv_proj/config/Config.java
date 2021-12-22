@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Level;
+
+import static employee_csv_proj.logging.SystemLogger.logger;
 
 public class Config {
 
@@ -14,6 +17,7 @@ public class Config {
         try {
             config.load(new BufferedReader(new FileReader("src/main/resources/config.properties")));
         } catch (IOException e) {
+            logger.log(Level.SEVERE, "Config file could not be accessed.", e);
             e.printStackTrace();
         }
     }
