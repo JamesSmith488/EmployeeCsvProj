@@ -7,8 +7,18 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class EmployeesDAO {
+
+    public static void addListOfEmployees(ArrayList<Employee> employeeArrayList) {
+        for (Employee i : employeeArrayList)
+            if (i.getEmpId() != -1 || i.getSalary() != -1) {
+                addEmployee(i);
+            } else {
+                //log something like "Employee contains invalid data"
+            }
+    }
 
     public static void addEmployee(Employee employee) {
         try {
