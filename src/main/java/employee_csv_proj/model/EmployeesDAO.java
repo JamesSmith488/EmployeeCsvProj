@@ -7,7 +7,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
-import static employee_csv_proj.logging.SystemLogger.logger;
+
+import static employee_csv_proj.logging.LoggerManager.employeesDaoLogger;
 import java.util.ArrayList;
 
 public class EmployeesDAO {
@@ -18,7 +19,7 @@ public class EmployeesDAO {
             if (i.getEmpId() != -1 || i.getSalary() != -1) {
                 addEmployee(i, connection);
             } else {
-                //log something like "Employee contains invalid data"
+                employeesDaoLogger.log(Level.WARNING, "Employee " + i + "contains invalid data");
             }
         }
         ConnectionManager.closeConnection(connection);
@@ -40,12 +41,11 @@ public class EmployeesDAO {
             employeePreparedStatement.setInt(10, employee.getSalary());
             employeePreparedStatement.execute();
 
-            logger.log(Level.INFO, "Employee successfully added to database.");
+            employeesDaoLogger.log(Level.INFO, "Employee successfully added to database.");
 
         } catch (SQLException e) {
             System.err.println("Problem accessing database");
-            //logging here pls
-            logger.log(Level.SEVERE, "Problem accessing database when adding employee.", e);
+            employeesDaoLogger.log(Level.SEVERE, "Problem accessing database when adding employee.", e);
             e.printStackTrace();
         }
     }
@@ -67,13 +67,12 @@ public class EmployeesDAO {
             employeePreparedStatement.setInt(10, employee.getSalary());
             employeePreparedStatement.execute();
 
-            logger.log(Level.INFO, "Employee successfully added to database.");
+            employeesDaoLogger.log(Level.INFO, "Employee successfully added to database.");
 
             ConnectionManager.closeConnection(connection);
         } catch (SQLException e) {
             System.err.println("Problem accessing database");
-            //logging here pls
-            logger.log(Level.SEVERE, "Problem accessing database when adding employee.", e);
+            employeesDaoLogger.log(Level.SEVERE, "Problem accessing database when adding employee.", e);
             e.printStackTrace();
         }
     }
@@ -85,14 +84,13 @@ public class EmployeesDAO {
             removeEmployeeStatement.setInt(1, employee.getEmpId());
             removeEmployeeStatement.execute();
 
-            logger.log(Level.INFO, "Employee successfully removed from database.");
+            employeesDaoLogger.log(Level.INFO, "Employee successfully removed from database.");
 
             ConnectionManager.closeConnection(connection);
 
         } catch (SQLException e) {
             System.err.println("Problem accessing database");
-            //logging here
-            logger.log(Level.SEVERE, "Problem accessing database when removing employee.", e);
+            employeesDaoLogger.log(Level.SEVERE, "Problem accessing database when removing employee.", e);
             e.printStackTrace();
         }
     }
