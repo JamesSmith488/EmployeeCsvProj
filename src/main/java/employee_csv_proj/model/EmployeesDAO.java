@@ -19,7 +19,7 @@ public class EmployeesDAO {
             if (i.getEmpId() != -1 || i.getSalary() != -1) {
                 addEmployee(i, connection);
             } else {
-                employeesDaoLogger.log(Level.WARNING, "Employee " + i + "contains invalid data");
+                employeesDaoLogger.log(Level.WARNING, "Employee " + i + " contains invalid data");
             }
         }
         ConnectionManager.closeConnection(connection);
