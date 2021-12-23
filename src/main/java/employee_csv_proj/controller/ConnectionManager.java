@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
-import static employee_csv_proj.logging.SystemLogger.logger;
+import static employee_csv_proj.logging.LoggerManager.connectionManagerLogger;
 
 public class ConnectionManager {
 
@@ -14,9 +14,9 @@ public class ConnectionManager {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(Config.dbConnectionUrl(), Config.dbUsername(), Config.dbPassword());
-            logger.log(Level.INFO, "Successfully initialised the connection to the database.");
+            connectionManagerLogger.log(Level.INFO, "Successfully initialised the connection to the database.");
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Database could not be accessed to initialise the connection.", e);
+            connectionManagerLogger.log(Level.SEVERE, "Database could not be accessed to initialise the connection.", e);
             e.printStackTrace();
         }
         return connection;
@@ -26,9 +26,9 @@ public class ConnectionManager {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(Config.dbConnectionUrl() + "/" + Config.dbName(), Config.dbUsername(), Config.dbPassword());
-            logger.log(Level.INFO, "Successfully connected to the database.");
+            connectionManagerLogger.log(Level.INFO, "Successfully connected to the database.");
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Database could not be accessed to open the connection.", e);
+            connectionManagerLogger.log(Level.SEVERE, "Database could not be accessed to open the connection.", e);
             e.printStackTrace();
         }
         return connection;
@@ -37,10 +37,9 @@ public class ConnectionManager {
     public static void closeConnection(Connection connection){
         try {
             connection.close();
-            //logging here
-            logger.log(Level.INFO, "Connection to database closed.");
+            connectionManagerLogger.log(Level.INFO, "Connection to database closed.");
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Database could not be accessed to close the connection.", e);
+            connectionManagerLogger.log(Level.SEVERE, "Database could not be accessed to close the connection.", e);
             e.printStackTrace();
         }
     }
