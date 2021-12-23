@@ -2,12 +2,14 @@ package employee_csv_proj.controller;
 
 import employee_csv_proj.config.Config;
 import employee_csv_proj.model.Employee;
-import employee_csv_proj.model.EmployeesDAO;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
-import static employee_csv_proj.logging.SystemLogger.logger;
+
+import static employee_csv_proj.logging.LoggerManager.duplicatesLogger;
+import static employee_csv_proj.logging.LoggerManager.employeeCsvParserLogger;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
@@ -28,7 +30,7 @@ public class EmployeeCsvParser {
                 //if (EmployeeCsvChecker.check(employeeData, employee)){employeesArrayList.add(employee);}
             }
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Problem parsing employee data from CSV file", e);
+            employeeCsvParserLogger.log(Level.SEVERE, "Problem parsing employee data from CSV file", e);
             e.printStackTrace();
         }
     }
@@ -47,8 +49,7 @@ public class EmployeeCsvParser {
 
             for (int i = 0; i < arrayList.size(); i++){
                 if (arrayList.get(i).getEmpId() != idArrayList.get(i)) {
-                    // log duplicate employee
-                    System.out.println("Duplicate found: " + arrayList.get(i).toString());
+                    duplicatesLogger.log(Level.INFO, "Duplicate found: " + arrayList.get(i).toString());
                     arrayList.remove(i);
                     i--;
                 }
