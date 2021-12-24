@@ -27,7 +27,6 @@ public class EmployeeCsvParser {
                 Employee employee = new Employee(employeeData);
 
                 employeesArrayList.add(employee);
-                //if (EmployeeCsvChecker.check(employeeData, employee)){employeesArrayList.add(employee);}
             }
         } catch (IOException e) {
             employeeCsvParserLogger.log(Level.SEVERE, "Problem parsing employee data from CSV file", e);
