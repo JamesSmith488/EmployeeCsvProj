@@ -1,5 +1,6 @@
 package employee_csv_proj.logging;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.*;
 
@@ -12,6 +13,15 @@ public class LoggerManager {
     public static Logger connectionManagerLogger = Logger.getLogger("connectionManagerLogger");
     public static Logger employeeCsvParserLogger = Logger.getLogger("employeeCsvParserLogger");
     public static Logger duplicatesLogger = Logger.getLogger("duplicatesLogger");
+
+    public static void deleteDummyFile() {
+        File dummyFile = new File("src/main/logs/dummyfile");
+        if (dummyFile.delete()) {
+            systemLogger.log(Level.INFO, "Deleted the file: " + dummyFile.getName());
+        } else {
+            systemLogger.log(Level.INFO,dummyFile.getName() + " has already been deleted.");
+        }
+    }
 
     public static void initialiseLoggers() {
         initialiseSystemLogger();
