@@ -3,6 +3,7 @@ package employee_csv_proj.start;
 import employee_csv_proj.controller.EmployeeCsvParser;
 import static employee_csv_proj.controller.EmployeeCsvParser.createEmployeeData;
 import static employee_csv_proj.controller.EmployeeCsvParser.getEmployeesArrayList;
+import static employee_csv_proj.logging.LoggerManager.deleteDummyFile;
 import static employee_csv_proj.logging.LoggerManager.initialiseLoggers;
 import static employee_csv_proj.model.DbInitialiseDAO.createEmployeesTable;
 import static employee_csv_proj.model.DbInitialiseDAO.dbInitialise;
@@ -11,6 +12,9 @@ import static employee_csv_proj.model.EmployeesDAO.addListOfEmployees;
 public class Loader {
 
     public static void start() {
+
+        // Deletes the dummy file in the log folder
+        deleteDummyFile();
         //Initialises the loggers to be used throughout the program
         initialiseLoggers();
         // Uses prepared statements to connect to localhost and create SQL database called csv_project and a table called "employees"
